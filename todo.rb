@@ -1,5 +1,7 @@
 require 'date'
 require 'active_support/all'
+require "thor"
+require "pry"
 
 class Todo
   attr_accessor :tasks
@@ -10,22 +12,34 @@ class Todo
   end
 
   def index
-    @tasks.each do |task|
+    if @tasks.empty?
       puts <<~TEXT
 
-      【詳細】
-      No.#{task.id}
-      タスク名：#{task.name}
-      優先順位：#{task.priority}
-      期限：#{task.limit}
+      登録されているタスクはありません
 
       TEXT
+    else
+      puts <<~TEXT
+
+      【一覧】
+
+      TEXT
+      @tasks.each do |task|
+        puts <<~TEXT
+
+        No.#{task.id}
+        タスク名：#{task.name}
+        優先順位：#{task.priority}
+        期限：#{task.limit}
+
+        TEXT
+      end
     end
   end
 
   def show
     puts "詳細表示するタスクを選んでください"
-    print "タスクNo"
+    print "タスクNo."
     task_num = gets.chomp.to_i - 1
 
     task = @tasks[task_num]
@@ -65,9 +79,85 @@ class Todo
   end
 
   def update
+    puts "どのタスクを更新しますか？"
+    print "タスクNo."
+    selected_num = gets.chomp.to_i
+    index_num = selected_num - 1
+
+    puts "タスクを登録してください"
+    print "名前："
+    name = gets.chomp
+    print "内容："
+    contents = gets.chomp
+    print "優先度（1~5）："
+    priority = gets.chomp
+
+    year = Date.today.year.to_i
+    print "期限（月）："
+    month = gets.chomp.to_i
+    print "期限（日）："
+    day = gets.chomp.to_i
+
+    @tasks[index_num] = Task.new(@id, name, contents, priority, Date.new(year, month, day), Date.today)
   end
 
   def delete
+    puts "削除するタスクNoを選んでください"
+    print "タスクNo."
+    selected_num = gets.chomp.to_i
+    index_num = selected_num - 1
+    task = @tasks[index_num]
+
+    puts <<~TEXT
+
+    以下のタスクを削除しますか？
+
+    タスク名：#{task.name}
+    内容：#{task.contents}
+    優先順位：#{task.priority}
+    期限：#{task.limit}
+    作成日：#{task.created_at}
+
+    はい => y
+    いいえ => n
+
+    TEXT
+
+
+    loop do
+      print "入力："
+      command = gets.chomp
+      if command == 'y'
+        @tasks.delete_at(index_num)
+        puts <<~TEXT
+
+        削除しました。
+
+        TEXT
+
+        break
+      elsif command == 'n'
+        puts <<~TEXT
+
+        削除をキャンセルしました。
+
+        TEXT
+
+        break
+      else
+        puts <<~TEXT
+
+        無効なコマンドです。
+        もう一度、入力をお願いします。
+
+        はい => y
+        いいえ => n
+
+        TEXT
+      end
+    end
+
+
   end
 
 end
@@ -89,6 +179,27 @@ end
 
 todo = Todo.new
 
-todo.create
-todo.index
-todo.show
+loop do
+  puts <<~TEXT
+
+  【タスク管理】
+  一覧 => 1
+  登録 => 2
+  削除 => 3
+  詳細 => 4
+
+  TEXT
+
+  select = gets.chomp.to_i
+
+  case select
+  when 1
+    todo.index
+  when 2
+    todo.create
+  when 3
+    todo.delete
+  when 4
+    todo.show
+  end
+end
