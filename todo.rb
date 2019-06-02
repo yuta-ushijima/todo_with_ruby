@@ -22,11 +22,9 @@ class Todo
       puts <<~TEXT
 
       【一覧】
-
       TEXT
       @tasks.each do |task|
         puts <<~TEXT
-
         No.#{task.id}
         タスク名：#{task.name}
         優先順位：#{task.priority}
@@ -190,6 +188,7 @@ loop do
 
   TEXT
 
+  print "タスクNo."
   select = gets.chomp.to_i
 
   case select
