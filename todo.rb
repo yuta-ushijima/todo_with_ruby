@@ -2,11 +2,11 @@ require 'date'
 require 'active_support/all'
 require "thor"
 require "pry"
-require './task.rb'
-require './logger'
+require 'task'
+require 'concern/message_dialog'
 
 class Todo
-  include Loggable
+  include MessageDialog
 
   attr_accessor :tasks
 
@@ -18,10 +18,10 @@ class Todo
 
   def index
     if @task_list.empty?
-      index_empty_log
+      empty_task_message
     else
-      @task_list.each.with_index(1) do |task, i|
-        index_log(task, i)
+      @task_list.map.with_index(1) do |task, i|
+        display_task_list(task, i)
       end
     end
   end

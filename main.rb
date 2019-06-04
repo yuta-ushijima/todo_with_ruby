@@ -1,10 +1,11 @@
-require './logger.rb'
-require './todo.rb'
+require 'concern/message_dialog'
+require 'todo'
 
 class Main
-  extend Loggable
+  extend MessageDialog
 
   @todo = Todo.new
+
   INDEX = 1
   SHOW = 2
   CREATE = 3
@@ -13,7 +14,7 @@ class Main
   FINISH = 6
 
   loop do
-    todo_menu_log
+    management_menu
 
     selected_num = gets.chomp.to_i
 

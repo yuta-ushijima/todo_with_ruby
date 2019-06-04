@@ -2,7 +2,7 @@ module MessageDialog
 
   private
 
-  def todo_menu_log
+  def management_menu
     puts <<~TEXT.freeze
       【タスク管理】
         一覧 => 1
@@ -13,20 +13,19 @@ module MessageDialog
         終了 => 6
     TEXT
     print "コマンド："
-
   end
 
-  def index_log(task, i)
+  def display_task_list(task, i)
     puts "【一覧】"
     puts <<~TEXT.freeze
-        No.#{i}
-        タスク名：#{task.name}
-        優先順位：#{task.priority}
-        期限：#{task.deadline}
+      No.#{i}
+      タスク名：#{task.name}
+      優先順位：#{task.priority}
+      期限：#{task.deadline}
     TEXT
   end
 
-  def index_empty_log
+  def empty_task_message
     puts "登録されているタスクはありません"
   end
 
