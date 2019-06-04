@@ -2,8 +2,8 @@ require 'date'
 require 'active_support/all'
 require "thor"
 require "pry"
-require 'task'
-require 'concern/message_dialog'
+require_relative './task'
+require_relative './concern/message_dialog'
 
 class Todo
   include MessageDialog
@@ -18,20 +18,21 @@ class Todo
 
   def index
     if @task_list.empty?
-      empty_task_message
+      empty_task_list_message
     else
-      @task_list.map.with_index(1) do |task, i|
-        display_task_list(task, i)
+      puts "【一覧】"
+      @task_list.map.with_index(1) do |task, index|
+        display_task_list(task, index)
       end
     end
   end
 
   def show
-    show_menu_log
+    display__message_of_task_detail
     # TODO: いい感じの書き方がないか？
     task_id = gets.chomp.to_i - DECREMENT_NUMBER
     task = @task_list[task_id]
-    show_log(task)
+    display_task_detail(task)
   end
 
   def create

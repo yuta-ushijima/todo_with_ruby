@@ -1,5 +1,5 @@
-require 'concern/message_dialog'
-require 'todo'
+require_relative './concern/message_dialog'
+require_relative './todo.rb'
 
 class Main
   extend MessageDialog

@@ -15,31 +15,30 @@ module MessageDialog
     print "コマンド："
   end
 
-  def display_task_list(task, i)
-    puts "【一覧】"
+  def display_task_list(task, index)
     puts <<~TEXT.freeze
-      No.#{i}
+      No.#{index}
       タスク名：#{task.name}
       優先順位：#{task.priority}
       期限：#{task.deadline}
     TEXT
   end
 
-  def empty_task_message
+  def empty_task_list_message
     puts "登録されているタスクはありません"
   end
 
-  def show_menu_log
+  def display__message_of_task_detail
     puts "詳細表示するタスクを選んでください"
     print "タスクNo."
   end
 
-  def show_log(task)
+  def display_task_detail(task)
     puts <<~TEXT.freeze
       【詳細】
         タスク名：#{task.name}
         内容：#{task.contents}
-        優先順位：#{task.priority}
+        優先度：#{task.priority}
         期限：#{task.deadline}
         作成日：#{task.created_at}
     TEXT
@@ -67,7 +66,7 @@ module MessageDialog
 
   def update_log
     puts  "タスクを更新してください"
-    print "名前："
+    print "タスク名："
     @name = gets.chomp
 
     print "内容："
@@ -92,7 +91,7 @@ module MessageDialog
 
       タスク名：#{task.name}
       内容：#{task.contents}
-      優先順位：#{task.priority}
+      優先度：#{task.priority}
       期限：#{task.deadline}
       作成日：#{task.created_at}
 
