@@ -1,4 +1,5 @@
-module Loggable
+module MessageDialog
+
   private
 
   def todo_menu_log
