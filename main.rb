@@ -14,7 +14,7 @@ class Main
   FINISH = 6
 
   loop do
-    management_menu
+    message_dialog_of_management_menu
 
     selected_num = gets.chomp.to_i
 

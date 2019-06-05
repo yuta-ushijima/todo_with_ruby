@@ -2,7 +2,7 @@ module MessageDialog
 
   private
 
-  def management_menu
+  def message_dialog_of_management_menu
     puts <<~TEXT.freeze
       【タスク管理】
         一覧 => 1
@@ -15,7 +15,7 @@ module MessageDialog
     print "コマンド："
   end
 
-  def display_task_list(task, index)
+  def message_dialog_of_task_list(task, index)
     puts <<~TEXT.freeze
       No.#{index}
       タスク名：#{task.name}
@@ -24,16 +24,16 @@ module MessageDialog
     TEXT
   end
 
-  def empty_task_list_message
+  def empty_task_message
     puts "登録されているタスクはありません"
   end
 
-  def display__message_of_task_detail
+  def message_dialog_of_task_number_for_detail
     puts "詳細表示するタスクを選んでください"
     print "タスクNo."
   end
 
-  def display_task_detail(task)
+  def message_dialog_of_task_detail(task)
     puts <<~TEXT.freeze
       【詳細】
         タスク名：#{task.name}
@@ -44,7 +44,7 @@ module MessageDialog
     TEXT
   end
 
-  def create_log
+  def message_dialog_of_create_task_menu
     puts  "タスクを登録してください"
     print "名前："
     @name = gets.chomp
@@ -59,12 +59,12 @@ module MessageDialog
     @deadline = gets.chomp
   end
 
-  def update_menu_log
+  def message_dialog_of_task_number_for_update
     puts "更新するタスクを選んでください"
     print "タスクNo."
   end
 
-  def update_log
+  def message_dialog_of_update_task
     puts  "タスクを更新してください"
     print "タスク名："
     @name = gets.chomp
@@ -79,12 +79,12 @@ module MessageDialog
     @deadline = gets.chomp
   end
 
-  def delete_menu_log
+  def message_dialog_of_task_number_for_delete
     puts "削除するタスクを選んでください"
     print "タスクNo."
   end
 
-  def delete_log(task)
+  def message_dialog_of_delete_task(task)
     puts <<~TEXT
 
       以下のタスクを削除しますか？
@@ -102,7 +102,7 @@ module MessageDialog
   end
 
   # TODO: viewにロジックがあるので分離する
-  def delete_dialog(index_num)
+  def message_dialog_of_command_for_delete(index_num)
     loop do
       print "入力："
       command = gets.chomp

@@ -18,43 +18,43 @@ class Todo
 
   def index
     if @task_list.empty?
-      empty_task_list_message
+      empty_task_message
     else
       puts "【一覧】"
       @task_list.map.with_index(1) do |task, index|
-        display_task_list(task, index)
+        message_dialog_of_task_list(task, index)
       end
     end
   end
 
   def show
-    display__message_of_task_detail
+    message_dialog_of_task_number_for_detail
     # TODO: いい感じの書き方がないか？
     task_id = gets.chomp.to_i - DECREMENT_NUMBER
     task = @task_list[task_id]
-    display_task_detail(task)
+    task.blank? ? empty_task_message : message_dialog_of_task_detail(task)
   end
 
   def create
-    create_log
+    message_dialog_of_create_task_menu
     @task_list << Task.new(@name, @contents, @priority, @deadline)
   end
 
   def update
-    update_menu_log
+    message_dialog_of_task_number_for_update
     selected_num = gets.chomp.to_i
     index_num = selected_num - DECREMENT_NUMBER
-    update_log
+    message_dialog_of_update_task
     @task_list[index_num] = Task.new(@name, @contents, @priority, @deadline)
   end
 
   def delete
-    delete_menu_log
+    message_dialog_of_task_number_for_delete
     selected_num = gets.chomp.to_i
     index_num = selected_num - DECREMENT_NUMBER
     task = @task_list[index_num]
-    delete_log(task)
-    delete_dialog(index_num)
+    message_dialog_of_delete_task(task)
+    message_dialog_of_command_for_delete(index_num)
   end
 
 end
