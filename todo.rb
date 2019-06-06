@@ -36,16 +36,16 @@ class Todo
   end
 
   def create
-    message_dialog_of_create_task_menu
-    @task_list << Task.new(@name, @contents, @priority, @deadline)
+    response = message_dialog_of_create_task_menu
+    @task_list << Task.new(response)
   end
 
   def update
     message_dialog_of_task_number_for_update
     selected_num = gets.chomp.to_i
     index_num = selected_num - DECREMENT_NUMBER
-    message_dialog_of_update_task
-    @task_list[index_num] = Task.new(@name, @contents, @priority, @deadline)
+    response = message_dialog_of_update_task
+    @task_list[index_num] = Task.new(response)
   end
 
   def delete

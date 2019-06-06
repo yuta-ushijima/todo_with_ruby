@@ -46,7 +46,7 @@ module MessageDialog
 
   def message_dialog_of_create_task_menu
     puts  "タスクを登録してください"
-    print "名前："
+    print "タスク名："
     @name = gets.chomp
 
     print "内容："
@@ -57,6 +57,8 @@ module MessageDialog
 
     print "期限(YYYY/MM//DD)："
     @deadline = gets.chomp
+
+    task_params
   end
 
   def message_dialog_of_task_number_for_update
@@ -77,6 +79,8 @@ module MessageDialog
 
     print "期限(YYYY/MM//DD)："
     @deadline = gets.chomp
+
+    task_params
   end
 
   def message_dialog_of_task_number_for_delete
@@ -135,6 +139,15 @@ module MessageDialog
         TEXT
       end
     end
+  end
+
+  def task_params
+    {
+      name: @name,
+      contents: @contents,
+      priority: @priority,
+      deadline: @deadline,
+    }
   end
 
 end
